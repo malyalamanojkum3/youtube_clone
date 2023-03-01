@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<head>
+  <title>youtube-clone</title>
+<style>
+  body {
+    margin:0;
+    padding-top: 80px;
+    padding-left: 100px;
+    padding-right: 20px;
+    height:3000px;
+    background-color: rgb(255, 245, 245);
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+                                                       /* header */
+  .header {
+   display: flex;
+   flex-direction: row;
+   height:60px;
+   justify-content: space-between;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right:0;
+   background-color: white;
+   border-bottom-width: 1px;
+   border-bottom-style: solid;
+   border-bottom-color: rgb(211, 204, 204);
+   z-index: 100;
+  }
+                                                        /*header-left*/
+  .left {
+    display: flex;
+   
+    align-items: center;
+  }
+  .hamb {
+    height:24px;
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+  .ulogo {
+    height:20px;
+  }
+                                                    /*header-middle*/
+  .mid {
+    flex: 1;
+    max-width:500px;
+    display: flex;
+    align-items: center;
+   
+  }
+  .tool-tip {
+    position: absolute;
+  }
+  
+  .search {
+    height:36px;
+    flex: 1;
+    font-size: 16px;
+    border-width: 1px;
+    padding:1px 2px 1px 12px;
+    box-shadow: inset 5px 8px 15px rgba(0,0,0,0.05);
+    width: 0;
+  }
+  .search-di {
+  
+   
+    border-style: solid;
+   
+    border-color:black;
+    border-width:1px;
+    padding: 5px 20px;
+    margin-left: -1px;
+      
+  }
+
+  .search-logo {
+  height:24px;
+  
+  }
+  .voice-div {
+    height:40px;
+    padding: 1px 6px;
+    display: flex;
+    align-items: center;
+    border-radius: 24px; 
+    background-color: rgb(192, 191, 191);
+    margin-left: 8px;
+  }
+  .voice-logo {
+    height:24px;
+  }
+                                            /*header-right*/
+  .right {
+    width: 200px;
+   
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+  .create {
+   height:24px;
+  }
+  .apps {
+    height:24px;
+  }
+  .notifications {
+    height:24px;
+  }
+  .notiification-div {
+    position: relative;
+    text-align: center;
+
+  }
+  .notiification-no {
+    height:18px;
+    width:18px;
+    border-radius: 18px;
+    border-radius: 18px;
+    position:absolute;
+    font-size: 16px;
+    top: -4px;
+    right:-6px;
+    color:white;
+    background-color: red;
+  }
+  .channel {
+    height:30px;
+    margin-right: 24px;
+  }
+/*                                       layers  */
+.search-di,
+.voice-div ,
+.create-div,
+.apps-div,
+.notiification-div {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.search-di .tool-tip,
+.voice-div .tool-tip, 
+.create-div .tool-tip,
+.apps-div .tool-tip,
+.notiification-div .tool-tip{
+  position: absolute;
+  bottom:-30px;
+  background-color: rgb(103, 102, 102);
+  color: white;
+  font-size: 14px;
+  padding:4px 8px;
+  border-radius: 2px;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.search-di:hover .tool-tip, 
+.voice-div:hover .tool-tip, 
+.create-div:hover .tool-tip,
+.apps-div:hover .tool-tip,
+.notiification-div:hover .tool-tip {
+  opacity:1;
+}
+.author-div {
+  width:50px;
+      border-radius:50px;
+      margin: 10px 10px;
+}
+.cone {
+  position: relative;
+  display: flex;
+  justify-content:flex-start;
+  z-index: 4;
+  
+}
+.cone .tool-tip {
+  position: absolute;
+  top:50px;
+  font-size: 14px;
+  padding:8px 10px;
+   background-color: white;
+  color: black;
+  border:2px solid rgb(220, 216, 216);
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+ 
+
+}
+
+.cone:hover .tool-tip  {
+  opacity:1;
+}
+
+
+                                                           /* side bar  */
+  .side-bar {
+    position:fixed;
+    z-index:200;
+    top:59px;
+    left:0px;
+    width:72px;
+    background-color: white;
+    
+  }
+  .side-bar-class {
+    
+    height:74px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15px;
+
+  }
+  .side-bar-class img {
+    height:24px
+  }
+  .side-bar-class-name {
+    font-size: 10px;
+  }
+  
+                                                         /* page */
+
+  .main {
+    display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      column-gap: 16px;
+      row-gap: 16px;
+
+  }
+  @media (max-width:1000px) {
+    .main {
+      grid-template-columns: 1fr 1fr 1fr;
+  }
+  }
+   @media (max-width:700px) {
+    .main {
+      grid-template-columns: 1fr 1fr;
+  }
+  }
+    .rone {
+        position:relative;
+        margin-bottom: 0;
+        padding-bottom: 0;
+       z-index:0;
+      
+       
+    }
+    .video-time {
+      position:absolute;
+      right: 5px;
+      bottom:8px;
+      background-color: black;
+      color:white;
+      padding-top:3px ;
+      padding-bottom:3px ;
+      padding-left: 3px;
+      padding-right: 3px;
+      font-style: Roboto,Arial;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .thumb {
+        width:100%;
+        margin-bottom: 0;
+    }
+    .rtwo {
+      margin-top:0;
+     
+      display: grid;
+      grid-template-columns: 45px 1fr;
+      justify-content: space-between;
+      align-items:flex-start;
+    }
+    .chan1 {
+      width:36px;
+      border-radius:36px;
+    }
+   .cone { 
+   margin:5px 0px;
+   
+  
+   }
+   .ctwo {
+    margin:5px 0px;
+    
+   }
+  .videolink {
+    margin:0px 0px;
+    margin:5px 5px;
+  }
+  .channelname {
+    margin-bottom: 0px;
+    font-size: 15px;
+  }
+  .videostats {
+    margin-top:3px;
+    font-size: 15px;
+  }
+</style>
+</head>
+<body>
+                                                     <!-- header  -->
+  <div class="header">
+                                                      <!-- left -->
+    <div class="left">
+      <img class="hamb" src="/temp/img/hamburger-menu.svg">
+       <img class="ulogo" src="/temp/img/youtube-logo.svg">
+    </div>
+                                                    <!--  middle-->
+    <div class="mid">
+      <input class="search" type="text" placeholder="Search">
+     
+     <div class="search-di"> 
+      <a href="/temp/img/thank_u.png">
+      <img class="search-logo" src="/temp/img/search.svg"> 
+    </a>
+      <div class="tool-tip">Search</div>
+    </div>
+     <div class="voice-div"> <img class="voice-logo" src="/temp/img/voice-search-icon.svg"> 
+      <div class="tool-tip">search with voice</div>
+    </div>
+     
+    </div>
+                                                     <!--right  -->
+    <div class="right">
+     <div class="create-div">
+      <img class="create" src="/temp/img/upload.svg">
+      <div class="tool-tip">Create</div>
+     </div> 
+     <div class="apps-div">
+      <img class="apps" src="/temp/img/youtube-apps.svg">
+      <div class="tool-tip">Apps</div>
+    </div>
+     
+       
+       <div class="notiification-div"> 
+        <img class="notifications" src="/temp/img/notifications.svg"> 
+       <div class="notiification-no">3</div>
+       <div class="tool-tip">Notifications</div>
+      </div>
+         <img class="channel" src="/temp/img/my-channel.jpeg">
+    </div>
+  </div>
+                                                     <!-- side-bar  -->
+  <div class="side-bar">
+    <div class="side-bar-class"><img  src="/temp/img/home.svg"><div class="side-bar-class-name">Home</div></div>
+    <div class="side-bar-class"><img  src="/temp/img/explore.svg"><div class="side-bar-class-name">Explore</div></div>
+    <div class="side-bar-class"><img  src="/temp/img/subscriptions.svg"><div class="side-bar-class-name">Subscriptions</div></div>
+    <div class="side-bar-class"><img  src="/temp/img/originals.svg"><div class="side-bar-class-name">Originals</div></div>
+    <div class="side-bar-class"><img  src="/temp/img/youtube-music.svg"><div class="side-bar-class-name">Youtube  Music</div></div>
+    <div class="side-bar-class"><img  src="/temp/img/library.svg"><div class="side-bar-class-name">Library</div></div>
+  </div>
+  
+  <!--    Main page  -->
+ 
+  <div class="main">
+     <!--video-1-->
+    <div class="one">
+        <div class="rone">
+          <a href="/temp/img/thank_u.png">
+    <img class="thumb" src="/temp/img/thumbnail-1.webp">
+         </a>
+    <div class="video-time">14:00</div>
+        </div>
+        <div class="rtwo">
+         <div class="cone">   
+    <img class="chan1" src="/temp/img/shashi-channel.jpeg">
+    <div class="tool-tip">
+      <img class="author-div" src="/temp/img/shashi-channel.jpeg">
+     <div class="author-info">
+      <div><super>SHASHIKANTH LANCE</super></div>
+      <div>15M subscribers</div>
+    </div>
+  </div> 
+        </div>
+        <div class="ctwo"> 
+        <p class="videolink">
+          <a href="/temp/img/thank_u.png">
+          <strong> Talking techan A.I with Google CEO Sundar Pichai!</strong>
+          </a>
+        </p>
+        <p class="channelname">SHASHIKANTH LANCE</p>
+        <p class="videostats">3.4M Views 5months ago</p>
+        </div>
+       </div>
+</div>
+ <!--video-2-->
+ <div class="one">
+        <div class="rone">
+          <a href="/temp/img/thank_u.png">
+            <img class="thumb" src="/temp/img/thumbnail-2.webp">
+          </a>
+    
+        </div>
+        <div class="rtwo">
+         <div class="cone">   
+    <img class="chan1" src="/temp/img/shiva_thum.jpeg">
+     <div class="tool-tip">
+      <img class="author-div" src="/temp/img/shiva_thum.jpeg">
+     <div classs="author-info">
+      <div><super>SHIVA STAN</super></div>
+      <div>10M subscribers</div>
+    </div>
+  </div> 
+        </div>
+        <div class="ctwo"> 
+        <p class="videolink">
+          <a href="/temp/img/thank_u.png">
+            <strong>Try Not To Laugh Challenge </strong>
+          </a>
+         
+        </p>
+        <p class="channelname">SHIVA STAN</p>
+        <p class="videostats">5.8M Views 4months ago</p>
+        </div>
+      </div>
+</div>
+ <!--video-3-->
+ <div class="one">
+        <div class="rone">
+          <a href="/temp/img/thank_u.png">
+            <img class="thumb" src="/temp/img/thumbnail-3.webp">
+          </a>
+    
+        </div>
+        <div class="rtwo">
+         <div class="cone">   
+    <img class="chan1" src="/temp/img/channel-3.jpeg">
+     <div class="tool-tip">
+      <img class="author-div" src="/temp/img/channel-3.jpeg">
+     <div classs="author-info">
+      <div><super>MARK POLO</super></div>
+      <div>9M subscribers</div>
+    </div>
+  </div> 
+        </div>
+        <div class="ctwo"> 
+        <p class="videolink">
+          <a href="/temp/img/thank_u.png">
+            <strong>Crazy Tik Toks Taken Moments Before DISASTER</strong>
+          </a> 
+          
+        </p>
+        <p class="channelname">MARK POLO</p>
+        <p class="videostats">3.4M Views 5months ago</p>
+        </div>
+       </div>
+       </div>
+ <!--video-4-->
+ <div class="one">
+        <div class="rone">
+          <a href="/temp/img/thank_u.png">
+            <img class="thumb" src="/temp/img/thumbnail-4.webp">
+          </a>
+   
+        </div>
+        <div class="rtwo">
+         <div class="cone">   
+    <img class="chan1" src="/temp/img/channel-4.jpeg">
+     <div class="tool-tip">
+      <img class="author-div" src="/temp/img/channel-4.jpeg">
+     <div classs="author-info">
+      <div><super>Andre tate</super></div>
+      <div>1M subscribers</div>
+    </div>
+  </div> 
+        </div>
+        <div class="ctwo"> 
+        <p class="videolink">
+          <a href="/temp/img/thank_u.png">
+            <strong>The Simplest Math Problem No One Can Solve - Collatz Conjecture</strong>
+          </a>
+          
+        </p>
+        <p class="channelname">Andre tate</p>
+        <p class="videostats">1.6M Views 11months ago</p>
+        </div>
+       </div>
+       </div>
+ <!--video-5-->
+ <div class="one">
+        <div class="rone">
+          <a href="/temp/img/thank_u.png">
+            <img class="thumb" src="/temp/img/thumbnail-5.webp">
+          </a>
+   
+        </div>
+        <div class="rtwo">
+         <div class="cone">   
+    <img class="chan1" src="/temp/img/channel-5.jpeg">
+     <div class="tool-tip">
+      <img class="author-div" src="/temp/img/channel-5.jpeg">
+     <div classs="author-info">
+      <div><super>HANNI MATHEW</super></div>
+      <div>76M subscribers</div>
+    </div>
+  </div> 
+        </div>
+        <div class="ctwo"> 
+        <p class="videolink">
+          <a href="/temp/img/thank_u.png">
+            <strong>Kadane's Algorithm to Maximum Sum Subarray Problem</strong>
+          </a>
+          
+        </p>
+        <p class="channelname">HANNI MATHEW</p>
+        <p class="videostats">3M Views 8months ago</p>
+        </div>
+       </div>
+   </div>
+   <!--video-6-->
+   <div class="one">
+    <div class="rone">
+      <a href="/temp/img/thank_u.png">
+        <img class="thumb" src="/temp/img/thumbnail-6.webp">
+      </a>
+
+    </div>
+    <div class="rtwo">
+     <div class="cone">   
+<img class="chan1" src="/temp/img/channel-6.jpeg">
+ <div class="tool-tip">
+      <img class="author-div" src="/temp/img/channel-6.jpeg">
+     <div classs="author-info">
+      <div><super>JHONY DEP</super></div>
+      <div>5M subscribers</div>
+    </div>
+  </div> 
+    </div>
+    <div class="ctwo"> 
+    <p class="videolink">
+      <a href="/temp/img/thank_u.png">
+        <strong>Anything You Can Fit In The Circle I’ll Pay For</strong>
+      </a>
+     
+    </p>
+    <p class="channelname">JHONY DEP</p>
+    <p class="videostats">3M Views 5months ago</p>
+    </div>
+   </div>
+</div>
+<!--video-7-->
+<div class="one">
+  <div class="rone">
+    <a href="/temp/img/thank_u.png">
+      <img class="thumb" src="/temp/img/thumbnail-7.webp">
+    </a>
+
+  </div>
+  <div class="rtwo">
+   <div class="cone">   
+<img class="chan1" src="/temp/img/channel-7.jpeg">
+ <div class="tool-tip">
+      <img class="author-div" src="/temp/img/channel-7.jpeg">
+     <div>
+      <div><super>GHANNI LANCE</super></div>
+      <div>7M subscribers</div>
+    </div>
+  </div> 
+  </div>
+  <div class="ctwo"> 
+  <p class="videolink">
+    <a href="/temp/img/thank_u.png">
+      <strong>Why Planes Don't Fly Over Tibet</strong>
+    </a>
+   
+  </p>
+  <p class="channelname">GHANNI LANCE</p>
+  <p class="videostats">5M Views 8months ago</p>
+  </div>
+ </div>
+</div>
+<!--video-8-->
+<div class="one">
+  <div class="rone">
+    <a href="/temp/img/thank_u.png">
+      <img class="thumb" src="/temp/img/thumbnail-8.webp">
+    </a>
+
+  </div>
+  <div class="rtwo">
+   <div class="cone"> 
+<img class="chan1" src="/temp/img/channel-8.jpeg">
+ <div class="tool-tip">
+      <img class="author-div" src="/temp/img/channel-8.jpeg">
+     <div classs="author-info">
+      <div><super>WILL SMITH</super></div>
+      <div>2.3M subscribers</div>
+    </div>
+  </div> 
+  </div>
+  <div class="ctwo"> 
+  <p class="videolink">
+    <a href="/temp/img/thank_u.png">
+      <strong>Inside The World's Biggest Passenger Plane</strong>
+    </a>
+    
+  </p>
+  <p class="channelname">WILL SMITH</p>
+  <p class="videostats">8.9M Views 5months ago</p>
+  </div>
+ </div>
+</div>
+<!--video-9-->
+<div class="one">
+  <div class="rone">
+    <a href="/temp/img/thank_u.png">
+      <img class="thumb" src="/temp/img/thumbnail-9.webp">
+    </a>
+
+  </div>
+  <div class="rtwo">
+   <div class="cone">   
+<img class="chan1" src="/temp/img/channel-9.jpeg">
+ <div class="tool-tip">
+      <img class="author-div" src="/temp/img/channel-9.jpeg">
+     <div classs="author-info">
+      <div><super>THANOS BUDDY</super></div>
+      <div>5M subscribers</div>
+    </div>
+  </div> 
+  </div>
+  <div class="ctwo"> 
+  <p class="videolink">
+    <a href="/temp/img/thank_u.png">
+      <strong>The SECRET to Super Human STRENGTH</strong>
+    </a>
+    
+  </p>
+  <p class="channelname">THANOS BUDDY</p>
+  <p class="videostats">3.4M Views 5months ago</p>
+  </div>
+ </div>
+</div>
+<!--video-10-->
+<div class="one">
+  <div class="rone">
+    <a href="/temp/img/thank_u.png">
+      <img class="thumb" src="/temp/img/thumbnail-10.webp">
+    </a>
+
+  </div>
+  <div class="rtwo">
+   <div class="cone">   
+<img class="chan1" src="/temp/img/channel-10.jpeg">
+ <div class="tool-tip">
+      <img class="author-div" src="/temp/img/channel-10.jpeg">
+     <div classs="author-info">
+      <div><super>HAWL WAAKS</super></div>
+      <div>15M subscribers</div>
+    </div>
+  </div> 
+  </div>
+  <div class="ctwo"> 
+  <p class="videolink">
+    <a href="/temp/img/thank_u.png">
+      <strong>How The World's Largest Cruise Ship Makes 30,000 Meals Every Day</strong>
+    </a>
+    
+  </p>
+  <p class="channelname">HAWL WAAKS</p>
+  <p class="videostats">3.4M Views 5months ago</p>
+  </div>
+ </div>
+</div>
+<!--video-11-->
+<div class="one">
+  <div class="rone">
+    <a href="/temp/img/thank_u.png">
+      <img class="thumb" src="/temp/img/thumbnail-11.webp">
+    </a>
+
+  </div>
+  <div class="rtwo">
+   <div class="cone">   
+<img class="chan1" src="/temp/img/channel-11.jpeg">
+ <div class="tool-tip">
+      <img class="author-div" src="/temp/img/channel-11.jpeg">
+     <div classs="author-info">
+      <div><super>MATT SAAMS</super></div>
+      <div>15M subscribers</div>
+    </div>
+  </div> 
+  </div>
+  <div class="ctwo"> 
+  <p class="videolink">
+    <a href="/temp/img/thank_u.png">
+      <strong>Dubai's Crazy Underwater Train and Other Things #Only in Dubai</strong>
+    </a>
+   
+  </p>
+  <p class="channelname">MATT SAAMS</p>
+  <p class="videostats">3.4M Views 5months ago</p>
+  </div>
+ </div>
+</div>
+<!--video-12-->
+<div class="one">
+  <div class="rone">
+    <a href="/temp/img/thank_u.png">
+      <img class="thumb" src="/temp/img/thumbnail-12.webp">
+    </a>
+
+  </div>
+  <div class="rtwo">
+   <div class="cone">   
+<img class="chan1" src="/temp/img/channel-12.jpeg">
+ <div class="tool-tip">
+      <img class="author-div" src="/temp/img/channel-12.jpeg">
+     <div classs="author-info">
+      <div><super>SAM FRING</super></div>
+      <div>15M subscribers</div>
+    </div>
+  </div> 
+  </div>
+  <div class="ctwo"> 
+  <p class="videolink">
+    <a href="/temp/img/thank_u.png">
+      <strong>What would happen if you didn’t drink water? - Mia Nacamulli</strong>
+    </a>
+    
+  </p>
+  <p class="channelname">SAM FRING</p>
+  <p class="videostats">3.4M Views 5months ago</p>
+  </div>
+ </div>
+</div>
+
+
+</div>
+</body>
+
